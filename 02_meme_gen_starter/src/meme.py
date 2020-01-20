@@ -1,5 +1,8 @@
 import os
 import random
+from abc import ABC, abstractmethod
+import docx
+
 
 # @TODO Import your Ingestor and MemeEngine classes
 
@@ -37,6 +40,11 @@ def generate_meme(path=None, body=None, author=None):
     meme = MemeEngine('./tmp')
     path = meme.make_meme(img, quote.body, quote.author)
     return path
+
+class MemeEngine:
+    pass
+
+
 
 
 if __name__ == "__main__":
