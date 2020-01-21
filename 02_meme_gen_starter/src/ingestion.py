@@ -22,6 +22,8 @@ class Ingestor:
             lines = CsvIngestor.parse(file)
         elif file_ext == 'doc' or file_ext == 'txt':
             lines = DocIngestor.parse(file)
+        elif file_ext == 'pdf':
+            lines = PdfIngestor.parse(file)
         print(lines)
     
 
