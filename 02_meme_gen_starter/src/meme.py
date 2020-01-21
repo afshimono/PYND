@@ -2,6 +2,7 @@ import os
 import random
 from abc import ABC, abstractmethod
 import docx
+from PIL import Image, ImageDraw, ImageFont
 
 
 # @TODO Import your Ingestor and MemeEngine classes
@@ -42,7 +43,11 @@ def generate_meme(path=None, body=None, author=None):
     return path
 
 class MemeEngine:
-    pass
+    def __init__(self,folder:str):
+        self.tmp_folder = folder
+
+    def make_meme(img:str, quote_body:str, quote_author:str):
+        img = Image.open(in_path)
 
 
 
