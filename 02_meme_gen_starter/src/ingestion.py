@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod 
 import docx
 import pandas as pd
+import subprocess
 
 
 class IngestionStrategy(ABC):
@@ -24,7 +25,7 @@ class Ingestor:
             lines = DocIngestor.parse(file)
         elif file_ext == 'pdf':
             lines = PdfIngestor.parse(file)
-        print(lines)
+        return lines
     
 
 class CsvIngestor(IngestionStrategy):
@@ -38,6 +39,7 @@ class CsvIngestor(IngestionStrategy):
         result = []
         for index, row in csv_file.iterrows():
             result.append(row)
+        return result
 
 class DocIngestor(IngestionStrategy):
     suported_types=['doc','docx','txt']
@@ -55,6 +57,13 @@ class DocIngestor(IngestionStrategy):
 class PdfIngestor(IngestionStrategy):
     @staticmethod
     def parse(file:str):
-        pass
+        tmp = f'./tmp/{random.randint(0,1000000)}.txt'
+        call = subprocess.call(['pdftotext', file, tmp])
+
+        file_ref = open(tmp, "r")
+        lines = []
+        for line in file_ref.readlines():
+            lines.append(line)
+        return lines
 
 

@@ -5,9 +5,8 @@ import docx
 from PIL import Image, ImageDraw, ImageFont
 from ingestion import Ingestor
 from QuoteEngine.quote import QuoteModel
+import argparse
 
-
-# @TODO Import your Ingestor and MemeEngine classes
 
 
 def generate_meme(path=None, body=None, author=None):
@@ -72,9 +71,12 @@ class MemeEngine:
 
 
 if __name__ == "__main__":
-    # @TODO Use ArgumentParser to parse the following CLI arguments
-    # path - path to an image file
-    # body - quote body to add to the image
-    # author - quote author to add to the image
-    args = None
+
+    parser = argparse.ArgumentParser(description="The best Meme Generator of the entire internet.")
+    parser.add_argument('path', type=str,help="The path to the image file.")
+    parser.add_argument('body', type=str, help="Quote body to add to the image.")
+    parser.add_argument('author', type=str, help="Quote author to add to the image.")
+
+    args = parser.parse_args()
+
     print(generate_meme(args.path, args.body, args.author))
