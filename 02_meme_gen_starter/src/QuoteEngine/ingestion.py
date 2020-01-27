@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import docx
 import pandas as pd
 import subprocess
+from QuoteEngine.quote import QuoteModel
 
 
 class IngestionStrategy(ABC):
@@ -10,6 +11,7 @@ class IngestionStrategy(ABC):
     def parse(file:str):
         pass
 
+    @staticmethod
     def check_input(acceptable:list, extension:str):
         if extension not in acceptable:
             raise Exception('File format not supported.')
@@ -21,37 +23,39 @@ class Ingestor:
         file_ext = file.split('.')[-1]
         if file_ext == 'csv':
             lines = CsvIngestor.parse(file)
-        elif file_ext == 'doc' or file_ext == 'txt':
+        elif file_ext == 'docx':
             lines = DocIngestor.parse(file)
+        elif file_ext == 'txt':
+            lines = TxtIngestor.parse(file)
         elif file_ext == 'pdf':
             lines = PdfIngestor.parse(file)
+        else:
+            raise Exception('Format not supported.')
         return lines
     
 
 class CsvIngestor(IngestionStrategy):
-    suported_types=['csv']
     
     @staticmethod
     def parse(file:str):
-        super.check_input(suported_types,file.split('.')[-1])
 
         csv_file = pd.read_csv(file)
         result = []
         for index, row in csv_file.iterrows():
-            result.append(row)
+            split_line = row.split('-')
+            result.append(QuoteModel(split_line[0],split_line[1]))
         return result
 
 class DocIngestor(IngestionStrategy):
-    suported_types=['doc','docx','txt']
 
     @staticmethod
     def parse(file:str):
-        super.check_input(suported_types,file.split('.')[-1])
 
         doc = docx.Document(file)
         result = []
         for line in doc.paragraphs:
-            result.append(line)
+            split_line = line.text.split('-')
+            result.append(QuoteModel(split_line[0],split_line[1]))
         return result
 
 class PdfIngestor(IngestionStrategy):
@@ -63,7 +67,18 @@ class PdfIngestor(IngestionStrategy):
         file_ref = open(tmp, "r")
         lines = []
         for line in file_ref.readlines():
-            lines.append(line)
+            split_line = line.split('-')
+            result.append(QuoteModel(split_line[0],split_line[1]))
         return lines
+
+class TxtIngestor(IngestionStrategy):
+    @staticmethod
+    def parse(file:str):
+        result = []
+        with open(file) as f:
+            for line in f:
+                split_line = line.split('-')
+                result.append(QuoteModel(split_line[0],split_line[1]))
+        return result
 
 

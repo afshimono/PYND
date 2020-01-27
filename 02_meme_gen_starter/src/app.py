@@ -49,7 +49,7 @@ def meme_rand():
     img = None
     quote = None
     path = meme.make_meme(img, quote.body, quote.author)
-    return render_template('meme.html', path=path)
+  git s  return render_template('meme.html', path=path)
 
 
 @app.route('/create', methods=['GET'])
