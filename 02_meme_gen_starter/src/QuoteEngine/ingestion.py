@@ -3,6 +3,8 @@ import docx
 import pandas as pd
 import subprocess
 from QuoteEngine.quote import QuoteModel
+import random
+import pathlib
 
 
 class IngestionStrategy(ABC):
@@ -42,8 +44,7 @@ class CsvIngestor(IngestionStrategy):
         csv_file = pd.read_csv(file)
         result = []
         for index, row in csv_file.iterrows():
-            split_line = row.split('-')
-            result.append(QuoteModel(split_line[0],split_line[1]))
+            result.append(QuoteModel(row['body'],row['author']))
         return result
 
 class DocIngestor(IngestionStrategy):
@@ -55,20 +56,23 @@ class DocIngestor(IngestionStrategy):
         result = []
         for line in doc.paragraphs:
             split_line = line.text.split('-')
-            result.append(QuoteModel(split_line[0],split_line[1]))
+            if len(split_line)>1:
+                result.append(QuoteModel(split_line[0],split_line[1]))
         return result
 
 class PdfIngestor(IngestionStrategy):
     @staticmethod
     def parse(file:str):
-        tmp = f'./tmp/{random.randint(0,1000000)}.txt'
+        current_path = pathlib.Path().absolute()
+        tmp = f'tmp/{random.randint(0,1000000)}.txt'
         call = subprocess.call(['pdftotext', file, tmp])
 
         file_ref = open(tmp, "r")
         lines = []
         for line in file_ref.readlines():
             split_line = line.split('-')
-            result.append(QuoteModel(split_line[0],split_line[1]))
+            if len(split_line)>1:
+                lines.append(QuoteModel(split_line[0],split_line[1]))
         return lines
 
 class TxtIngestor(IngestionStrategy):

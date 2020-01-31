@@ -5,6 +5,7 @@ import docx
 from PIL import Image, ImageDraw, ImageFont
 from QuoteEngine.ingestion import Ingestor
 from QuoteEngine.quote import QuoteModel
+from MemeGenerator.memegen import MemeEngine
 import argparse
 import pathlib
 
@@ -16,7 +17,7 @@ def generate_meme(path=None, body=None, author=None):
     quote = None
 
     if path is None:
-        #current_path = pathlib.Path().absolute()
+        current_path = pathlib.Path().absolute()
         images = "src/_data/photos/dog"
         imgs = []
         for root, dirs, files in os.walk(images):
@@ -41,7 +42,7 @@ def generate_meme(path=None, body=None, author=None):
             raise Exception('Author Required if Body is Used')
         quote = QuoteModel(body, author)
 
-    meme = MemeEngine('./tmp')
+    meme = MemeEngine('tmp')
     path = meme.make_meme(img, quote.body, quote.author)
     return path
 
