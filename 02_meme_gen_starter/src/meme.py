@@ -10,7 +10,6 @@ import argparse
 import pathlib
 
 
-
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
     img = None
@@ -47,15 +46,16 @@ def generate_meme(path=None, body=None, author=None):
     return path
 
 
-
-
-
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="The best Meme Generator of the entire internet.")
-    parser.add_argument('--path',help="The path to the image file.",default=None)
-    parser.add_argument('--body', help="Quote body to add to the image.",default=None)
-    parser.add_argument('--author', help="Quote author to add to the image.",default=None)
+    parser = argparse.ArgumentParser(description="The best Meme \
+         Generator of the entire internet.")
+    parser.add_argument('--path',help="The path to the image file.", \
+                default=None)
+    parser.add_argument('--body', help="Quote body to add to the image.", \
+                default=None)
+    parser.add_argument('--author', help="Quote author to add to the image.", \
+                default=None)
 
     args = parser.parse_args()
 

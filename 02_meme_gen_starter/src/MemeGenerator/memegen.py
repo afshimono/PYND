@@ -17,7 +17,8 @@ class MemeEngine:
         if quote_body is not None and quote_author is not None:
             message = quote_body + ' ' + quote_author
             draw = ImageDraw.Draw(img_obj)
-            font = ImageFont.truetype('src/_data/fonts/Lato-Black.ttf', size=20)
+            font = ImageFont.truetype('src/_data/fonts/Lato-Black.ttf',
+                                      size=20)
             draw.text((10, 30), message, font=font, fill='white')
 
         out_path = self.tmp_folder+"/out"+img[-4:]
