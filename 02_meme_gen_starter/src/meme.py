@@ -50,12 +50,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="The best Meme \
          Generator of the entire internet.")
-    parser.add_argument('--path',help="The path to the image file.", \
-                default=None)
-    parser.add_argument('--body', help="Quote body to add to the image.", \
-                default=None)
-    parser.add_argument('--author', help="Quote author to add to the image.", \
-                default=None)
+    parser.add_argument('--path', help="The path to the image file.",
+                        default=None)
+    parser.add_argument('--body', help="Quote body to add to the image.",
+                        default=None)
+    parser.add_argument('--author', help="Quote author to add to the image.",
+                        default=None)
 
     args = parser.parse_args()
 

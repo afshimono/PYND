@@ -9,8 +9,7 @@ import validators
 import string
 
 
-app = Flask(__name__,static_url_path = "")
-
+app = Flask(__name__, static_url_path="")
 meme = MemeEngine('static')
 
 
@@ -43,8 +42,8 @@ def meme_rand():
     img = random.choice(imgs)
     quote = random.choice(quotes)
     path = meme.make_meme(img, quote.body, quote.author)
-    
     return render_template('meme.html', path=f"/{path}")
+
 
 @app.route('/static/<path:path>')
 def send_js(path):
@@ -73,7 +72,6 @@ def meme_post():
     if not validators.url(url):
         raise Exception('Not a valid URL!')
     r = requests.get(url, stream=True)
-    
     if '.jpg' in url:
         img = f'./tmp/img.jpg'
     elif '.png'in url:
@@ -81,13 +79,13 @@ def meme_post():
     else:
         raise Exception('Unknown image format.')
     if r.status_code == 200:
-        with open(img , 'wb') as f:
+        with open(img, 'wb') as f:
             for chunk in r.iter_content():
                 f.write(chunk)
     body = request.form.get('body')
     author = request.form.get('author')
     if body and author:
-        quote = QuoteModel(body,author)
+        quote = QuoteModel(body, author)
     else:
         quote = random.choice(quotes)
     path = meme.make_meme(img, quote.body, quote.author)
