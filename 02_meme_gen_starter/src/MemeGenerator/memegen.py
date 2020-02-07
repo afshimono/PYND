@@ -1,4 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
+import random
+import string
 
 
 class MemeEngine:
@@ -21,7 +23,9 @@ class MemeEngine:
                                       size=20)
             draw.text((10, 30), message, font=font, fill='white')
 
-        out_path = self.tmp_folder+"/out"+img[-4:]
+
+        img_name = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(16)])
+        out_path = self.tmp_folder+f"/{img_name}"+img[-4:]
         img_obj.save(out_path)
 
         return out_path
