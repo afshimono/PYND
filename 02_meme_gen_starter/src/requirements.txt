@@ -1,6 +1,0 @@
-pandas==0.23.4
-Pillow==7.0.0
-pycodestyle==2.5.0
-Flask==1.1.1
-python-docx==0.8.10
-validators==0.14.2

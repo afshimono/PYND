@@ -2,7 +2,8 @@ import random
 import os
 import requests
 from flask import Flask, render_template, abort, request, send_from_directory
-from QuoteEngine.ingestion import Ingestor, QuoteModel
+from QuoteEngine.ingestion import Ingestor
+from QuoteEngine.quote import QuoteModel
 from MemeGenerator.memegen import MemeEngine
 import glob
 import validators
@@ -22,8 +23,9 @@ def setup():
                    'src/_data/DogQuotes/DogQuotesCSV.csv']
 
     quote_list = []
+    ingestor = Ingestor()
     for file in quote_files:
-        quote_list.extend(Ingestor.parse(file))
+        quote_list.extend(ingestor.parse(file))
     quotes = quote_list
 
     images_path = "src/_data/photos/dog/"

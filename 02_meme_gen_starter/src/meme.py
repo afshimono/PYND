@@ -32,8 +32,9 @@ def generate_meme(path=None, body=None, author=None):
                        'src/_data/DogQuotes/DogQuotesPDF.pdf',
                        'src/_data/DogQuotes/DogQuotesCSV.csv']
         quotes = []
+        ingestor = Ingestor()
         for f in quote_files:
-            quotes.extend(Ingestor.parse(f))
+            quotes.extend(ingestor.parse(f))
 
         quote = random.choice(quotes)
     else:
