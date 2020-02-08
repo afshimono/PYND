@@ -1,6 +1,5 @@
 *.DS_Store
 **/.vscode/**
-**/__pycache__
-tmp/*.txt
-tmp/*.jpg
-tmp/*.png
+**/__pycache__/**
+tmp/*.*
+static/*.*
