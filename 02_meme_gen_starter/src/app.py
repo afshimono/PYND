@@ -68,9 +68,9 @@ def meme_post():
         raise Exception('Not a valid URL!')
     r = requests.get(url, stream=True)
     if '.jpg' in url:
-        img = f'./tmp/img.jpg'
+        img = f'tmp/img.jpg'
     elif '.png'in url:
-        img = f'./tmp/img.png'
+        img = f'tmp/img.png'
     else:
         raise Exception('Unknown image format.')
     if r.status_code == 200:

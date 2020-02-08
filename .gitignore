@@ -1,5 +1,9 @@
 *.DS_Store
 **/.vscode/**
 **/__pycache__/**
-tmp/*.*
-static/*.*
+02_meme_gen_starter/tmp/*
+!02_meme_gen_starter/tmp/.gitkeep
+02_meme_gen_starter/static/*
+!02_meme_gen_starter/static/.gitkeep
+**/pynd_venv/**
+**/.venv

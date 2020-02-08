@@ -10,7 +10,7 @@ class MemeEngine:
 
     def make_meme(self, img: str, quote_body: str,
                   quote_author: str, width=500) -> str:
-    ''' This function will return the path to a meme saved on the self.tmp folder'''
+        ''' This function will return the path to a meme saved on the self.tmp folder'''
 
     
         img_obj = Image.open(img)
