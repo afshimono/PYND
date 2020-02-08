@@ -11,13 +11,16 @@ import pathlib
 
 
 def generate_meme(path=None, body=None, author=None):
-    """ Generate a meme given an path and a quote """
+    """ Generate a meme given an path and a quote .
+        Will load a list of saved quotes, a list of saved dog pics,
+        and if no quote or pic is provided, will use one from the lists randomly."""
+
     img = None
     quote = None
 
     if path is None:
-        current_path = pathlib.Path().absolute()
-        images = "src/_data/photos/dog"
+        current_path = pathlib.Path("src/_data/photos/dog").absolute()
+        images = str(current_path)
         imgs = []
         for root, dirs, files in os.walk(images):
             imgs = [os.path.join(root, name) for name in files]
@@ -27,10 +30,10 @@ def generate_meme(path=None, body=None, author=None):
         img = path[0]
 
     if body is None:
-        quote_files = ['src/_data/DogQuotes/DogQuotesTXT.txt',
-                       'src/_data/DogQuotes/DogQuotesDOCX.docx',
-                       'src/_data/DogQuotes/DogQuotesPDF.pdf',
-                       'src/_data/DogQuotes/DogQuotesCSV.csv']
+        quote_files = [str(pathlib.Path('src/_data/DogQuotes/DogQuotesTXT.txt').absolute()),
+                       str(pathlib.Path('src/_data/DogQuotes/DogQuotesDOCX.docx').absolute()),
+                       str(pathlib.Path('src/_data/DogQuotes/DogQuotesPDF.pdf').absolute()),
+                       str(pathlib.Path('src/_data/DogQuotes/DogQuotesCSV.csv').absolute())]
         quotes = []
         ingestor = Ingestor()
         for f in quote_files:
@@ -60,4 +63,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print(generate_meme(args.path, args.body, args.author))
+    print(str(pathlib.Path(generate_meme(args.path, args.body, args.author)).absolute()))

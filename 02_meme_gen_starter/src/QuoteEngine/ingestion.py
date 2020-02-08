@@ -8,6 +8,8 @@ import pathlib
 
 
 class IngestionInterface(ABC):
+    ''' Interface containing an abstract method which must be implemented by children,
+        and a classmethod that will check class list list_of_acceptable for file extensions. '''
 
     list_of_acceptable = []
 
@@ -24,6 +26,8 @@ class IngestionInterface(ABC):
 
 
 class Ingestor:
+    ''' Encapsulation of all ingestors to provide a simpler interface. '''
+
     def __init__(self):
         self.pdf_ingestor = PdfIngestor()
         self.txt_ingestor = TxtIngestor()
@@ -31,6 +35,7 @@ class Ingestor:
         self.docx_ingestor = DocIngestor()
 
     def parse(self,file: str):
+        ''' Function that will choose the best parser based on the file extension. '''
         lines = []
         file_ext = file.split('.')[-1]
         if file_ext == 'csv':
@@ -47,6 +52,7 @@ class Ingestor:
 
 
 class CsvIngestor(IngestionInterface):
+    ''' Ingestor for CSV files.'''
 
     list_of_acceptable = ['csv']
     def parse(self,file: str):
@@ -59,6 +65,7 @@ class CsvIngestor(IngestionInterface):
 
 
 class DocIngestor(IngestionInterface):
+    ''' Ingestor for docx files. '''
 
     list_of_acceptable = ['docx']
     def parse(self,file: str):
@@ -73,6 +80,8 @@ class DocIngestor(IngestionInterface):
 
 
 class PdfIngestor(IngestionInterface):
+    ''' Ingestor for PDF files. '''
+
     list_of_acceptable = ['pdf']
     def parse(self,file: str):
         if self.check_input(file):
@@ -89,6 +98,8 @@ class PdfIngestor(IngestionInterface):
 
 
 class TxtIngestor(IngestionInterface):
+    ''' Ingestor for txt files. '''
+    
     list_of_acceptable = ['txt']
     def parse(self,file: str):
         if self.check_input(file):
